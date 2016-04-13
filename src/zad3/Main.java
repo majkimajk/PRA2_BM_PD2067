@@ -12,12 +12,12 @@ public class Main {
     }
 
     private static void printTest() {
-        System.out.println("Moday");
-        System.out.println("Moday");
-        System.out.println("Moday");
-        System.out.println("Moday");
-        System.out.println("Moday");
-        System.out.println("Moday");
+        System.out.println("Saturday");
+        System.out.println("Saturday");
+        System.out.println("Saturday");
+        System.out.println("Saturday");
+        System.out.println("Saturday");
+        System.out.println("Saturday");
 
 
     }

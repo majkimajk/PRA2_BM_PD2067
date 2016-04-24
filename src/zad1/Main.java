@@ -5,27 +5,38 @@
 package zad1;
 
 
+
+
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
+
 import static javax.swing.SwingConstants.*;
 
-public class Main{
+public class Main {
 
     final int NUMOFET = 5;
 
 
-    Color backCol[] = { new Color(191, 225, 255), new Color(255, 255, 200),
-            new Color(201, 245, 245), new Color(255, 255, 140),
-            new Color(161, 224, 224), new Color(255, 255, 200), };
-    Color fontCol[] = { new Color(191, 225, 255), new Color(255, 255, 200),
-            new Color(201, 245, 245), new Color(255, 255, 140),
-            new Color(161, 224, 224), new Color(255, 255, 200), };
-  /*  String[] backCol = {"BLACK","RED","YELLOW","BLUE","GREEN"};
-    String[] fontCol = {"RED","YELLOW","BLACK","GREEN","BLUE"};*/
-  String place[] = { "West", "North", "East", "South", "Center" };
-    int[] fontSize = {12, 21, 10, 8, 30, 14};
-    String[] texts = {"Jeden","Dwa","Trzy","Cztery","Pięć"};
-    String[] tips = {"One","Two","Three","Four","Five"};
+    Color[] backCol = {Color.CYAN, Color.MAGENTA, Color.YELLOW, Color.LIGHT_GRAY, Color.GREEN}; //Kolor tła
+    Color[] fonCol = {Color.MAGENTA, Color.CYAN, Color.GREEN, Color.YELLOW, Color.LIGHT_GRAY}; //Kolor pisma
+    Font[] fonts = {                                                                           // Rozmiary i rodzaje pisma
+            (new Font("West", Font.BOLD, 18)),
+            (new Font("North", Font.ITALIC, 34)),
+            (new Font("East", Font.BOLD | Font.ITALIC, 23)),
+            (new Font("South", Font.ROMAN_BASELINE | Font.ITALIC, 58)),
+            (new Font("Center", Font.PLAIN, 44))
+    };
+    String place[] = {"West", "North", "East", "South", "Center"};      //rozmieszczenie etykiet
+    String[] texts = {"West", "North", "East", "South", "Center"};      //teksty etykiet
+    String[] tips = {"Zachód", "Północ", "Wschód", "Południe", "Centrum"}; //teksty podpowiedzi
+    Border[] borders = {                                                   // ramki etykiet
+            BorderFactory.createTitledBorder("West"),
+            BorderFactory.createRaisedBevelBorder(),
+            BorderFactory.createLineBorder(Color.BLACK),
+            BorderFactory.createEtchedBorder(),
+            BorderFactory.createMatteBorder(23,18,27,18, new ImageIcon("icon.gif"))
+    };
 
 
     Main() {
@@ -36,11 +47,13 @@ public class Main{
         for (int i = 0; i < NUMOFET; i++) {
 
             JLabel l = new JLabel();
-           // l.setBackground(backCol[i]);
-            l.setFont(new Font("aaa", Font.ITALIC, 30));
+            l.setOpaque(true);
+            l.setBackground(backCol[i]);
+            l.setFont(fonts[i]);
+            l.setForeground(fonCol[i]);
             l.setText(texts[i]);
             l.setToolTipText(tips[i]);
-            l.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+            l.setBorder(borders[i]);
             f.add(l, place[i]);
             f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             f.pack();

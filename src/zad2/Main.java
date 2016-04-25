@@ -49,10 +49,9 @@ public class Main {
 
         //JTextArea
 
-        JScrollPane scroll = new JScrollPane(new JTextArea("To jest JTextArea", 30, 60));
-        //c.fill = GridBagConstraints.BOTH;
-       // c.weightx = 1;
-        //c.weighty = 1;
+        JTextArea textArea = new JTextArea("To jest JTextArea", 18, 50);
+        JScrollPane scroll = new JScrollPane(textArea);
+        c.fill = GridBagConstraints.BOTH;
         c.gridx = 0;
         c.gridy = 1;
         c.gridwidth = 2;
@@ -73,7 +72,7 @@ public class Main {
         c.weighty = 1;
         c.gridx = 0;
         c.gridy = 2;
-        c.anchor = GridBagConstraints.LINE_START;
+        c.anchor = GridBagConstraints.LAST_LINE_START;
 
         f.add(numPad, c);
 
@@ -85,13 +84,16 @@ public class Main {
         for (int i = 0; i < 3; i++) {
             JTextField textF = new JTextField("To jest JTextField", 12);
             textF.setBorder(BorderFactory.createLineBorder(Color.RED));
+            textFields.add(Box.createRigidArea(new Dimension(7, 7)));
             textFields.add(textF);
-            textFields.add(Box.createRigidArea(new Dimension(10,10)));
+            textFields.add(Box.createRigidArea(new Dimension(7, 7)));
         }
 
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 1;
         c.gridx = 1;
         c.gridy = 2;
+        c.insets = new Insets(0, 0, 0, 50);
         c.anchor = GridBagConstraints.LINE_START;
 
         f.add(textFields, c);

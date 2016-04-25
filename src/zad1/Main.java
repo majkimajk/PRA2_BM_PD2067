@@ -39,10 +39,10 @@ public class Main {
     };
 
 
-    Main() {
+    public Main() {
 
         JFrame f = new JFrame("Etykiety");
-        f.setLayout(new BorderLayout());
+        f.getContentPane().setLayout(new BorderLayout());
 
         for (int i = 0; i < NUMOFET; i++) {
 

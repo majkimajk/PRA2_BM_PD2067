@@ -25,8 +25,8 @@ public class Main {
         flow1.add(new JButton("A1"));
         flow1.add(new JButton("A2"));
         flow1.add(new JButton("A2"));
-        c.weightx = 1;
-        c.weighty = 1;
+        c.weightx = 0.5;
+        c.weighty = 0.5;
         c.gridx = 0;
         c.gridy = 0;
         c.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -39,8 +39,7 @@ public class Main {
         flow2.add(new JButton("B1"));
         flow2.add(new JButton("B2"));
         flow2.add(new JButton("B2"));
-        c.weightx = 1;
-        c.weighty = 1;
+
         c.gridx = 1;
         c.gridy = 0;
         c.anchor = GridBagConstraints.FIRST_LINE_END;
@@ -68,8 +67,6 @@ public class Main {
             numPad.add(new JButton(nazwa));
         }
         c.fill = GridBagConstraints.NONE;
-        c.weightx = 1;
-        c.weighty = 1;
         c.gridx = 0;
         c.gridy = 2;
         c.anchor = GridBagConstraints.LAST_LINE_START;
@@ -90,7 +87,6 @@ public class Main {
         }
 
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 1;
         c.gridx = 1;
         c.gridy = 2;
         c.insets = new Insets(0, 0, 0, 50);

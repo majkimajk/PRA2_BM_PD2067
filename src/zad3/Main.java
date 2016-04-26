@@ -53,7 +53,6 @@ public class Main {
         f.setVisible(true);
         f.pack();
 
-
     }
 
     public static void main(String[] args) {
@@ -67,11 +66,4 @@ public class Main {
 
     }
 
-
-/*    @Override
-    public void actionPerformed(ActionEvent e) {
-
-        b.setBackground(Color.RED);
-
-    }*/
 }

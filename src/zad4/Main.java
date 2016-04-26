@@ -13,7 +13,7 @@ public class Main {
     public Main() {
 
         //tworzę textAre ze scrollem
-        JTextArea textArea = new JTextArea(50, 100);
+        JTextArea textArea = new JTextArea(35, 70);
         JScrollPane scroll = new JScrollPane(textArea);
 
         //tworzę menu
@@ -35,10 +35,8 @@ public class Main {
 
 
 
-
-
         //tworzę JFrame + BorderLayout
-        JFrame frame = new JFrame();
+        JFrame frame = new MyFrame();
         frame.getContentPane().setLayout(new BorderLayout());
 
 

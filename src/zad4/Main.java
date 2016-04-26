@@ -36,6 +36,7 @@ public class Main {
 
 
 
+
         //tworzę JFrame + BorderLayout
         JFrame frame = new JFrame();
         frame.getContentPane().setLayout(new BorderLayout());

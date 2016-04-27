@@ -12,31 +12,63 @@ public class Main {
 
     public Main() {
 
-        //tworzę textAre ze scrollem
+
+
+        //tworzę textArea ze scrollem
         JTextArea textArea = new JTextArea(35, 70);
         JScrollPane scroll = new JScrollPane(textArea);
 
-        //tworzę menu
+        // menu File i jego komponenty
 
         JMenu menuFile = new JMenu("File");
-        JMenuItem open = new JMenuItem("Open");
-        JMenuItem save = new JMenuItem("Save");
+
+        MyMenuItem open = new MyMenuItem("Open", 'o', "control O");
+        MyMenuItem save = new MyMenuItem("Save", 's', "control S");
+        MyMenuItem saveAs = new MyMenuItem("Save As ...", 'a', "control A");
+        MyMenuItem exit = new MyMenuItem("Exit", 'x', "control X");
+
+        // Separator
+        JSeparator sep = new JSeparator(SwingConstants.HORIZONTAL);
+        sep.setMinimumSize(new Dimension(300, 300));
+        sep.setBackground(Color.RED);
+        menuFile.add(sep);
+
+        //dodawanie elementów do menu File
         menuFile.add(open);
         menuFile.add(save);
+        menuFile.add(saveAs);
+        menuFile.add(sep);
+        menuFile.add(exit);
+
+        //menu Edit i jego komponenty
 
         JMenu menuEdit = new JMenu("Edit");
-        JMenuItem adresy = new JMenu("Adresy");
+        MyMenu adresy = new MyMenu("Adresy");
+
+        MyMenuItem praca = new MyMenuItem("Praca", 'p', "control shift P");
+        MyMenuItem szkola = new MyMenuItem("Szkoła", 's', "control shift S");
+        MyMenuItem dom = new MyMenuItem("Dom", 'd', "control shift D");
+        adresy.add(praca);
+        adresy.add(szkola);
+        adresy.add(dom);
         menuEdit.add(adresy);
 
+        //menu Options i jego komponenty
+        JMenu menuOptions = new JMenu("Options");
+
+
+
+        // menuBar i dodawanie wszytkich menu menu
         JMenuBar menuBar = new JMenuBar();
         menuBar.setPreferredSize(new Dimension(10, 20));
         menuBar.add(menuFile);
         menuBar.add(menuEdit);
+        menuBar.add(menuOptions);
 
 
 
         //tworzę JFrame + BorderLayout
-        JFrame frame = new MyFrame();
+        JFrame frame = new JFrame();
         frame.getContentPane().setLayout(new BorderLayout());
 
 

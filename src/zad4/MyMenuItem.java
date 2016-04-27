@@ -1,34 +1,33 @@
 package zad4;
 
 import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.Field;
 
 /**
  * Created by jedzu_000 on 2016-04-27.
  */
 public class MyMenuItem extends JMenuItem {
 
-    private JMenuItem mi;
-    private String text;
-    private int mnemo;
-    private Icon i;
-    private String accel;
+    private Color kolor;
 
-//// konstruktor dla menuItem w File
+    //// konstruktor dla menuItem w File
     public MyMenuItem(String text) {
         super(text);
     }
 
 
     //// kontruktor dla menuItem w File
-    public MyMenuItem (String text, int mnemo, String accel) {
+    public MyMenuItem(String text, int mnemo, String accel) {
         super(text);
         setMnemonic(mnemo);
         setAccelerator(KeyStroke.getKeyStroke(accel));
         setOpaque(true);
         setBorder(BorderFactory.createRaisedBevelBorder());
     }
-//// kontruktor dla menuItem w Adresach
-    public MyMenuItem (String text, int mnemo, String accel, String klucz) {
+
+    //// kontruktor dla menuItem w Adresach
+    public MyMenuItem(String text, int mnemo, String accel, String klucz) {
         super(text);
         setMnemonic(mnemo);
         setAccelerator(KeyStroke.getKeyStroke(accel));
@@ -41,11 +40,32 @@ public class MyMenuItem extends JMenuItem {
     public MyMenuItem(String text, int rozmiar) {
 
         super(text);
+        setOpaque(true);
+        setBorder(BorderFactory.createRaisedBevelBorder());
         putClientProperty("Rozmiar", rozmiar);
 
     }
 
+    //// konstruktor dla menuItem w Fore i Background
+    public MyMenuItem(String text, String nazwaKoloru) {
 
+        super(text);
+        setOpaque(true);
+        setBorder(BorderFactory.createRaisedBevelBorder());
+        //String do koloru
+        Field field = null;
+        try {
+            field = Class.forName("java.awt.Color").getField(nazwaKoloru.toLowerCase());
+            kolor = (Color) field.get(null);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+            putClientProperty("Kolor", kolor);
+    }
 
 
 }

@@ -12,6 +12,7 @@ public class MyListener implements ActionListener {
 
     private JComponent comp;
     private int rozmiarFonta;
+    private String which;
 
     public MyListener(JComponent c) {
         comp = c;
@@ -24,27 +25,47 @@ public class MyListener implements ActionListener {
         rozmiarFonta = rozmF;
     }
 
+    // konstruktor dla Fore i Background
+
+    public MyListener(JComponent c, String which) {
+
+        comp = c;
+        this.which = which;
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        JTextArea textArea = (JTextArea) comp;
         JComponent src = (JComponent) e.getSource();
+        JTextArea textArea = (JTextArea) comp;
 
         // jeœli przekazaliœmy wielkoœc czcionki
         if (rozmiarFonta != 0) {
-            int rozmiar = (int) src.getClientProperty("Rozmiar");
+           // int rozmiar = (int) src.getClientProperty("Rozmiar");
             Font font = textArea.getFont();
-            font = new Font(font.getName(), font.getStyle(), rozmiar);
+            font = new Font(font.getName(), font.getStyle(), rozmiarFonta);
             textArea.setFont(font);
-
-
-
-        }// jeœli nie przekazaliœmy czcionki
-        else {
+            return;
+        }
+        // przekazaliœmy hint, ¿e foreground
+        if (which == null) {
             String adres = (String) src.getClientProperty("Adres");
             textArea.append(adres);
+            return;
         }
+        if (which.equals("for")){
+            Color col = (Color) src.getClientProperty("Kolor");
+            textArea.setForeground(col);
+            return;
+        }
+        // przekazaliœmy hint, ¿e background
+        if (which.equals("back")){
+            Color col = (Color) src.getClientProperty("Kolor");
+            textArea.setBackground(col);
+        }
+
+        // jeœli nie przekazaliœmy czcionki ani koloru
+
 
         //
     }

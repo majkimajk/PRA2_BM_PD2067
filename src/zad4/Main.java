@@ -20,8 +20,8 @@ public class Main {
         JTextArea textArea = new JTextArea(35, 70);
         JScrollPane scroll = new JScrollPane(textArea);
 
-        // menu File i jego komponenty
 
+        // menu File i jego komponenty
         JMenu menuFile = new JMenu("File");
 
         JMenuItem open = new MyMenuItem("Open", 'o', "control O");
@@ -45,7 +45,7 @@ public class Main {
         sep.setBackground(Color.RED);
         menuFile.add(sep);
 
-        //dodawanie elementów do menu File
+
         menuFile.add(open);
         menuFile.add(save);
         menuFile.add(saveAs);
@@ -66,8 +66,6 @@ public class Main {
         szkola.addActionListener(new MyListener(textArea));
         dom.addActionListener(new MyListener(textArea));
 
-
-       // szkola
         adresy.add(praca);
         adresy.add(szkola);
         adresy.add(dom);
@@ -77,13 +75,32 @@ public class Main {
         //menu Options i jego komponenty
         JMenu menuOptions = new JMenu("Options");
 
+        String[] kolory = {"Blue", "Yellow", "Orange", "Red", "White", "Black", "Green"};
+
+        JMenu foreground = new MyMenu("Foreground");
+        for (int k = 0; k < kolory.length; k++) {
+            JMenuItem kolorFor = new MyMenuItem(kolory[k], kolory[k]);
+            kolorFor.addActionListener(new MyListener(textArea, "for"));
+            foreground.add(kolorFor);
+        }
+
+        JMenu background = new MyMenu("Background");
+        for (int k = 0; k < kolory.length; k++) {
+            JMenuItem kolorBack = new MyMenuItem(kolory[k], kolory[k]);
+            kolorBack.addActionListener(new MyListener(textArea, "back"));
+            background.add(kolorBack);
+        }
+
+
         JMenu font = new MyMenu("Font");
         for (int f = 8; f < 26; f+=2) {
             JMenuItem rozmiarFonta = new MyMenuItem(Integer.toString(f) + " pts", f);
-            rozmiarFonta.setBorder(BorderFactory.createRaisedBevelBorder());
             rozmiarFonta.addActionListener(new MyListener(textArea, f));
             font.add(rozmiarFonta);
         }
+
+        menuOptions.add(foreground);
+        menuOptions.add(background);
         menuOptions.add(font);
 
 

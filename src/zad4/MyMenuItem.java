@@ -19,8 +19,7 @@ public class MyMenuItem extends JMenuItem {
     }
 
 
-
-//// kontruktor dla menuItem w Adresach
+    //// kontruktor dla menuItem w File
     public MyMenuItem (String text, int mnemo, String accel) {
         super(text);
         setMnemonic(mnemo);
@@ -28,6 +27,27 @@ public class MyMenuItem extends JMenuItem {
         setOpaque(true);
         setBorder(BorderFactory.createRaisedBevelBorder());
     }
+//// kontruktor dla menuItem w Adresach
+    public MyMenuItem (String text, int mnemo, String accel, String klucz) {
+        super(text);
+        setMnemonic(mnemo);
+        setAccelerator(KeyStroke.getKeyStroke(accel));
+        setOpaque(true);
+        setBorder(BorderFactory.createRaisedBevelBorder());
+        putClientProperty("Adres", klucz);
+    }
+
+    //// konstruktor dla menuItem w Font
+    public MyMenuItem(String text, int rozmiar) {
+
+        super(text);
+        putClientProperty("Rozmiar", rozmiar);
+
+    }
+
+
+
+
 }
 
 

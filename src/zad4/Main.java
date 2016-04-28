@@ -79,14 +79,14 @@ public class Main {
 
         JMenu foreground = new MyMenu("Foreground");
         for (int k = 0; k < kolory.length; k++) {
-            JMenuItem kolorFor = new MyMenuItem(kolory[k], kolory[k]);
+            JMenuItem kolorFor = new MyMenuItem(kolory[k], new MyIcon(), kolory[k]);
             kolorFor.addActionListener(new MyListener(textArea, "for"));
             foreground.add(kolorFor);
         }
 
         JMenu background = new MyMenu("Background");
         for (int k = 0; k < kolory.length; k++) {
-            JMenuItem kolorBack = new MyMenuItem(kolory[k], kolory[k]);
+            JMenuItem kolorBack = new MyMenuItem(kolory[k], new MyIcon(), kolory[k]);
             kolorBack.addActionListener(new MyListener(textArea, "back"));
             background.add(kolorBack);
         }

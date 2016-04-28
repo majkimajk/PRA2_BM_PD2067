@@ -47,15 +47,17 @@ public class MyMenuItem extends JMenuItem {
     }
 
     //// konstruktor dla menuItem w Fore i Background
-    public MyMenuItem(String text, String nazwaKoloru) {
+    public MyMenuItem(String text, MyIcon icon, String nazwaKoloru) {
 
-        super(text);
+        super(text, icon);
+        setIconTextGap(20);
+
         setOpaque(true);
         setBorder(BorderFactory.createRaisedBevelBorder());
         //String do koloru
-        Field field = null;
+
         try {
-            field = Class.forName("java.awt.Color").getField(nazwaKoloru.toLowerCase());
+           Field field = Class.forName("java.awt.Color").getField(nazwaKoloru.toLowerCase());
             kolor = (Color) field.get(null);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
@@ -64,6 +66,9 @@ public class MyMenuItem extends JMenuItem {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+
+        //rysujemy ikonę
+
             putClientProperty("Kolor", kolor);
     }
 

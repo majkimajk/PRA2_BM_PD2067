@@ -39,7 +39,7 @@ public class MyListener implements ActionListener {
         JComponent src = (JComponent) e.getSource();
         JTextArea textArea = (JTextArea) comp;
 
-        // jeúli przekazaliúmy wielkoúc czcionki
+        // je≈õli przekazali≈õmy wielko≈õc czcionki
         if (rozmiarFonta != 0) {
            // int rozmiar = (int) src.getClientProperty("Rozmiar");
             Font font = textArea.getFont();
@@ -47,7 +47,7 @@ public class MyListener implements ActionListener {
             textArea.setFont(font);
             return;
         }
-        // przekazaliúmy hint, øe foreground
+        // przekazali≈õmy hint, ≈ºe foreground
         if (which == null) {
             String adres = (String) src.getClientProperty("Adres");
             textArea.append(adres);
@@ -58,13 +58,13 @@ public class MyListener implements ActionListener {
             textArea.setForeground(col);
             return;
         }
-        // przekazaliúmy hint, øe background
+        // przekazali≈õmy hint, ≈ºe background
         if (which.equals("back")){
             Color col = (Color) src.getClientProperty("Kolor");
             textArea.setBackground(col);
         }
 
-        // jeúli nie przekazaliúmy czcionki ani koloru
+        // je≈õli nie przekazali≈õmy czcionki ani koloru
 
 
         //

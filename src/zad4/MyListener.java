@@ -62,7 +62,11 @@ public class MyListener implements ActionListener {
         if (which.equals("back")){
             Color col = (Color) src.getClientProperty("Kolor");
             textArea.setBackground(col);
+            return;
         }
+
+        //akcja open
+
 
         // jeśli nie przekazaliśmy czcionki ani koloru
 

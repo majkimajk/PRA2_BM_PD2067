@@ -16,11 +16,12 @@ public class MyFrame extends JFrame {
    private final JTextArea textArea = new JTextArea(35, 70);
 
     private String title = "MyEditor 1.0 - ";
-    private String bezTytulu = "bez tytułu";
+    private String pathFile = "bez tytułu";
+    private String recentFolder = "user.home";
 
     public MyFrame() {
 
-        setTitle(title + bezTytulu);
+        setTitle(title + pathFile);
 
         //dodaję scroll do textArea
 
@@ -37,42 +38,38 @@ public class MyFrame extends JFrame {
         JMenuItem exit = new MyMenuItem("Exit", 'x', "control X");
 
 
-        // akcja open
+
+        // akcja open z jednoczesną zmianą tytułu frame'a
         open.addActionListener(e -> {
             JFileChooser fc = new JFileChooser();
-            fc.setCurrentDirectory(new File(System.getProperty("user.home")));
+            fc.setCurrentDirectory(new File(System.getProperty(recentFolder)));
             int i = fc.showOpenDialog(this);
             File wybranyPlik = fc.getSelectedFile();
             try {
                 FileReader fr = new FileReader(wybranyPlik);
                 BufferedReader br = new BufferedReader(fr);
                 textArea.read(br, null);
-                setTitle(title  + wybranyPlik.toString());
-
 
             } catch (FileNotFoundException e1) {
                 e1.printStackTrace();
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-
+            setTitle(title  + wybranyPlik.toString());
+            pathFile = wybranyPlik.getAbsolutePath();
+            recentFolder = pathFile.substring(0, pathFile.lastIndexOf(File.separator));
+            System.out.println(recentFolder);
         });
 
 
         //akcja save
-        save.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        save.addActionListener(e -> {
 
-            }
         });
 
         // akcja save as
-        saveAs.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        saveAs.addActionListener(e -> {
 
-            }
         });
         //akcja exit
 

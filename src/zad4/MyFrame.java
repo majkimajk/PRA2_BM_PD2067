@@ -58,6 +58,7 @@ public class MyFrame extends JFrame {
 
         });
 
+
         //akcja save
         save.addActionListener(new ActionListener() {
             @Override

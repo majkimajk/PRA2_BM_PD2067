@@ -11,11 +11,6 @@ public class MyMenuItem extends JMenuItem {
 
     private Color kolor;
 
-    //// konstruktor dla menuItem w File
-    public MyMenuItem(String text) {
-        super(text);
-    }
-
 
     //// kontruktor dla menuItem w File
     public MyMenuItem(String text, int mnemo, String accel) {
@@ -34,6 +29,7 @@ public class MyMenuItem extends JMenuItem {
         setOpaque(true);
         setBorder(BorderFactory.createRaisedBevelBorder());
         putClientProperty("Adres", klucz);
+      //  addActionListener(new MyListener(textArea));
     }
 
     //// konstruktor dla menuItem w Font

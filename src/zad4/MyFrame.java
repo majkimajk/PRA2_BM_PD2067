@@ -17,7 +17,7 @@ public class MyFrame extends JFrame {
 
     private String title = "MyEditor 1.0 - ";
     private String pathFile = "bez tytułu";
-    private String recentFolder = "user.home";
+    private String recentFolder = null;
 
     public MyFrame() {
 
@@ -42,7 +42,12 @@ public class MyFrame extends JFrame {
         // akcja open z jednoczesną zmianą tytułu frame'a
         open.addActionListener(e -> {
             JFileChooser fc = new JFileChooser();
-            fc.setCurrentDirectory(new File(System.getProperty(recentFolder)));
+            if ( recentFolder == null) {
+                fc.setCurrentDirectory(new File(System.getProperty("user.home")));
+            }
+            else {
+                fc.setCurrentDirectory(new File(recentFolder));
+            }
             int i = fc.showOpenDialog(this);
             File wybranyPlik = fc.getSelectedFile();
             try {

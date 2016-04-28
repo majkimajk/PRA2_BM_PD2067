@@ -7,21 +7,23 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 
 /**
  * Created by jedzu_000 on 2016-04-28.
  */
 public class MyFrame extends JFrame {
 
-   private final JTextArea textArea = new JTextArea(35, 70);
+    private final JTextArea textArea = new JTextArea(35, 70);
 
-    private String title = "MyEditor 1.0 - ";
+    final private String TITLE = "MyEditor 1.0 - ";
     private String pathFile = "bez tytułu";
     private String recentFolder = null;
 
     public MyFrame() {
 
-        setTitle(title + pathFile);
+        setTitle(TITLE + pathFile);
 
         //dodaję scroll do textArea
 
@@ -38,18 +40,19 @@ public class MyFrame extends JFrame {
         JMenuItem exit = new MyMenuItem("Exit", 'x', "control X");
 
 
-
         // akcja open z jednoczesną zmianą tytułu frame'a
         open.addActionListener(e -> {
             JFileChooser fc = new JFileChooser();
-            if ( recentFolder == null) {
+            if (recentFolder == null) {
                 fc.setCurrentDirectory(new File(System.getProperty("user.home")));
-            }
-            else {
+            } else {
                 fc.setCurrentDirectory(new File(recentFolder));
             }
             int i = fc.showOpenDialog(this);
             File wybranyPlik = fc.getSelectedFile();
+            if (wybranyPlik == null) {
+                return;
+            }
             try {
                 FileReader fr = new FileReader(wybranyPlik);
                 BufferedReader br = new BufferedReader(fr);
@@ -60,20 +63,81 @@ public class MyFrame extends JFrame {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            setTitle(title  + wybranyPlik.toString());
+            setTitle(TITLE + wybranyPlik.toString());
             pathFile = wybranyPlik.getAbsolutePath();
             recentFolder = pathFile.substring(0, pathFile.lastIndexOf(File.separator));
-            System.out.println(recentFolder);
         });
 
 
         //akcja save
         save.addActionListener(e -> {
+            if (pathFile.equals("bez tytułu")) {
 
+            }
         });
 
         // akcja save as
         saveAs.addActionListener(e -> {
+
+            JFileChooser fc = new JFileChooser();
+            if (recentFolder == null) {
+                fc.setCurrentDirectory(new File(System.getProperty("user.home")));
+            } else {
+                fc.setCurrentDirectory(new File(recentFolder));
+            }
+            //int i = fc.showSaveDialog(this);
+            if (fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION){
+                File nowyPlik = fc.getSelectedFile();
+                try {
+                    PrintWriter pw = new PrintWriter(nowyPlik);
+                    String texToWrite = textArea.getText();
+                    pw.write(texToWrite);
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                }
+
+  /* do ogarniecia            class OpenL implements ActionListener {
+                    public void actionPerformed(ActionEvent e) {
+                        JFileChooser c = new JFileChooser();
+                        // Demonstrate "Open" dialog:
+                        int rVal = c.showOpenDialog(FileChooserTest.this);
+                        if (rVal == JFileChooser.APPROVE_OPTION) {
+                            filename.setText(c.getSelectedFile().getName());
+                            dir.setText(c.getCurrentDirectory().toString());
+                        }
+                        if (rVal == JFileChooser.CANCEL_OPTION) {
+                            filename.setText("You pressed cancel");
+                            dir.setText("");
+                        }
+                    }
+                }
+
+                class SaveL implements ActionListener {
+                    public void actionPerformed(ActionEvent e) {
+                        JFileChooser c = new JFileChooser();
+                        // Demonstrate "Save" dialog:
+                        int rVal = c.showSaveDialog(FileChooserTest.this);
+                        if (rVal == JFileChooser.APPROVE_OPTION) {
+                            filename.setText(c.getSelectedFile().getName());
+                            dir.setText(c.getCurrentDirectory().toString());
+                        }
+                        if (rVal == JFileChooser.CANCEL_OPTION) {
+                            filename.setText("You pressed cancel");
+                            dir.setText("");
+                        }
+                    }
+                }*/
+                /*try {
+                    FileWriter fw = new FileWriter(nowyPlik);
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    String texToWrite = textArea.getText();
+                    bw.write(texToWrite);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }*/
+
+            }
+
 
         });
         //akcja exit
@@ -82,7 +146,11 @@ public class MyFrame extends JFrame {
 
         // Separator
         JSeparator sep = new JSeparator(SwingConstants.HORIZONTAL);
-        sep.setMinimumSize(new Dimension(300, 300));
+        sep.setMinimumSize(new
+
+                        Dimension(300, 300)
+
+        );
         sep.setBackground(Color.RED);
 
 
@@ -102,9 +170,21 @@ public class MyFrame extends JFrame {
         JMenuItem dom = new MyMenuItem("Dom", 'd', "control shift D", "adres domu");
 
         // actionListenerzy do Adresów
-        praca.addActionListener(new MyListener(textArea));
-        szkola.addActionListener(new MyListener(textArea));
-        dom.addActionListener(new MyListener(textArea));
+        praca.addActionListener(new
+
+                        MyListener(textArea)
+
+        );
+        szkola.addActionListener(new
+
+                        MyListener(textArea)
+
+        );
+        dom.addActionListener(new
+
+                        MyListener(textArea)
+
+        );
 
         adresy.add(praca);
         adresy.add(szkola);
@@ -118,14 +198,22 @@ public class MyFrame extends JFrame {
         String[] kolory = {"Blue", "Yellow", "Orange", "Red", "White", "Black", "Green"};
 
         JMenu foreground = new MyMenu("Foreground");
-        for (int k = 0; k < kolory.length; k++) {
+        for (
+                int k = 0;
+                k < kolory.length; k++)
+
+        {
             JMenuItem kolorFor = new MyMenuItem(kolory[k], new MyIcon(), kolory[k]);
             kolorFor.addActionListener(new MyListener(textArea, "for"));
             foreground.add(kolorFor);
         }
 
         JMenu background = new MyMenu("Background");
-        for (int k = 0; k < kolory.length; k++) {
+        for (
+                int k = 0;
+                k < kolory.length; k++)
+
+        {
             JMenuItem kolorBack = new MyMenuItem(kolory[k], new MyIcon(), kolory[k]);
             kolorBack.addActionListener(new MyListener(textArea, "back"));
             background.add(kolorBack);
@@ -133,7 +221,11 @@ public class MyFrame extends JFrame {
 
 
         JMenu font = new MyMenu("Font");
-        for (int f = 8; f < 26; f += 2) {
+        for (
+                int f = 8;
+                f < 26; f += 2)
+
+        {
             JMenuItem rozmiarFonta = new MyMenuItem(Integer.toString(f) + " pts", f);
             rozmiarFonta.addActionListener(new MyListener(textArea, f));
             font.add(rozmiarFonta);
@@ -146,15 +238,25 @@ public class MyFrame extends JFrame {
 
         // menuBar i dodawanie wszystkich menu
         JMenuBar menuBar = new JMenuBar();
-        menuBar.setPreferredSize(new Dimension(10, 20));
+        menuBar.setPreferredSize(new
+
+                        Dimension(10, 20)
+
+        );
         menuBar.add(menuFile);
         menuBar.add(menuEdit);
         menuBar.add(menuOptions);
 
 
         //tworzę JFrame + BorderLayout
-       // JFrame frame = new JFrame();
-        getContentPane().setLayout(new BorderLayout());
+        // JFrame frame = new JFrame();
+        getContentPane()
+
+                .
+
+                        setLayout(new BorderLayout()
+
+                        );
 
 
         //dodaję menu
@@ -167,7 +269,9 @@ public class MyFrame extends JFrame {
 
         //pakuję Jframe
         pack();
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         setVisible(true);
     }
 

@@ -48,31 +48,66 @@ public class MyFrame extends JFrame {
             } else {
                 fc.setCurrentDirectory(new File(recentFolder));
             }
-            int i = fc.showOpenDialog(this);
-            File wybranyPlik = fc.getSelectedFile();
-            if (wybranyPlik == null) {
-                return;
-            }
-            try {
-                FileReader fr = new FileReader(wybranyPlik);
-                BufferedReader br = new BufferedReader(fr);
-                textArea.read(br, null);
+            if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+                // int i = fc.showOpenDialog(this);
+                File wybranyPlik = fc.getSelectedFile();
+               /* if (wybranyPlik == null) {
+                    return;
+                }*/
+                try {
+                    FileReader fr = new FileReader(wybranyPlik);
+                    BufferedReader br = new BufferedReader(fr);
+                    textArea.read(br, null);
 
-            } catch (FileNotFoundException e1) {
-                e1.printStackTrace();
-            } catch (IOException e1) {
-                e1.printStackTrace();
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                setTitle(TITLE + wybranyPlik.toString());
+                pathFile = wybranyPlik.getAbsolutePath();
+                recentFolder = pathFile.substring(0, pathFile.lastIndexOf(File.separator));
             }
-            setTitle(TITLE + wybranyPlik.toString());
-            pathFile = wybranyPlik.getAbsolutePath();
-            recentFolder = pathFile.substring(0, pathFile.lastIndexOf(File.separator));
         });
 
 
         //akcja save
         save.addActionListener(e -> {
-            if (pathFile.equals("bez tytułu")) {
+            if (!pathFile.equals("bez tytułu")) {
+                File plikIstniejacy = new File(pathFile);
+                try {
+                    PrintWriter pw = new PrintWriter(plikIstniejacy);
+                    String texToWrite = textArea.getText();
+                    pw.write(texToWrite);
+                    pw.flush();
+                    pw.close();
 
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            else {
+                JFileChooser fc = new JFileChooser();
+                if (recentFolder == null) {
+                    fc.setCurrentDirectory(new File(System.getProperty("user.home")));
+                } else {
+                    fc.setCurrentDirectory(new File(recentFolder));
+                }
+                if (fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION){
+                    File nowyPlik = fc.getSelectedFile();
+                    try {
+                        PrintWriter pw = new PrintWriter(nowyPlik);
+                        String texToWrite = textArea.getText();
+                        pw.write(texToWrite);
+                        pw.flush();
+                        pw.close();
+                        setTitle(TITLE + nowyPlik.toString());
+                        pathFile = nowyPlik.getAbsolutePath();
+
+                    } catch (FileNotFoundException e1) {
+                        e1.printStackTrace();
+                    }
+                }
             }
         });
 
@@ -85,59 +120,21 @@ public class MyFrame extends JFrame {
             } else {
                 fc.setCurrentDirectory(new File(recentFolder));
             }
-            //int i = fc.showSaveDialog(this);
             if (fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION){
                 File nowyPlik = fc.getSelectedFile();
                 try {
                     PrintWriter pw = new PrintWriter(nowyPlik);
                     String texToWrite = textArea.getText();
                     pw.write(texToWrite);
+                    pw.flush();
+                    pw.close();
+                    setTitle(TITLE + nowyPlik.toString());
+                    pathFile = nowyPlik.getAbsolutePath();
+
                 } catch (FileNotFoundException e1) {
                     e1.printStackTrace();
                 }
-
-  /* do ogarniecia            class OpenL implements ActionListener {
-                    public void actionPerformed(ActionEvent e) {
-                        JFileChooser c = new JFileChooser();
-                        // Demonstrate "Open" dialog:
-                        int rVal = c.showOpenDialog(FileChooserTest.this);
-                        if (rVal == JFileChooser.APPROVE_OPTION) {
-                            filename.setText(c.getSelectedFile().getName());
-                            dir.setText(c.getCurrentDirectory().toString());
-                        }
-                        if (rVal == JFileChooser.CANCEL_OPTION) {
-                            filename.setText("You pressed cancel");
-                            dir.setText("");
-                        }
-                    }
-                }
-
-                class SaveL implements ActionListener {
-                    public void actionPerformed(ActionEvent e) {
-                        JFileChooser c = new JFileChooser();
-                        // Demonstrate "Save" dialog:
-                        int rVal = c.showSaveDialog(FileChooserTest.this);
-                        if (rVal == JFileChooser.APPROVE_OPTION) {
-                            filename.setText(c.getSelectedFile().getName());
-                            dir.setText(c.getCurrentDirectory().toString());
-                        }
-                        if (rVal == JFileChooser.CANCEL_OPTION) {
-                            filename.setText("You pressed cancel");
-                            dir.setText("");
-                        }
-                    }
-                }*/
-                /*try {
-                    FileWriter fw = new FileWriter(nowyPlik);
-                    BufferedWriter bw = new BufferedWriter(fw);
-                    String texToWrite = textArea.getText();
-                    bw.write(texToWrite);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }*/
-
             }
-
 
         });
         //akcja exit

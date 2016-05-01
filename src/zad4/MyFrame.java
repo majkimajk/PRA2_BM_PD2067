@@ -87,7 +87,7 @@ public class MyFrame extends JFrame {
                 }
             }
             else {
-                JFileChooser fc = new JFileChooser();
+               /* JFileChooser fc = new JFileChooser();
                 if (recentFolder == null) {
                     fc.setCurrentDirectory(new File(System.getProperty("user.home")));
                 } else {
@@ -107,14 +107,14 @@ public class MyFrame extends JFrame {
                     } catch (FileNotFoundException e1) {
                         e1.printStackTrace();
                     }
-                }
+                }*/ saveAs();
             }
         });
 
         // akcja save as
         saveAs.addActionListener(e -> {
 
-            JFileChooser fc = new JFileChooser();
+            /*JFileChooser fc = new JFileChooser();
             if (recentFolder == null) {
                 fc.setCurrentDirectory(new File(System.getProperty("user.home")));
             } else {
@@ -134,7 +134,8 @@ public class MyFrame extends JFrame {
                 } catch (FileNotFoundException e1) {
                     e1.printStackTrace();
                 }
-            }
+            }*/
+            saveAs();
 
         });
         //akcja exit
@@ -270,6 +271,29 @@ public class MyFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setVisible(true);
+    }
+    void saveAs() {
+        JFileChooser fc = new JFileChooser();
+        if (recentFolder == null) {
+            fc.setCurrentDirectory(new File(System.getProperty("user.home")));
+        } else {
+            fc.setCurrentDirectory(new File(recentFolder));
+        }
+        if (fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION){
+            File nowyPlik = fc.getSelectedFile();
+            try {
+                PrintWriter pw = new PrintWriter(nowyPlik);
+                String texToWrite = textArea.getText();
+                pw.write(texToWrite);
+                pw.flush();
+                pw.close();
+                setTitle(TITLE + nowyPlik.toString());
+                pathFile = nowyPlik.getAbsolutePath();
+
+            } catch (FileNotFoundException e1) {
+                e1.printStackTrace();
+            }
+        }
     }
 
 }
